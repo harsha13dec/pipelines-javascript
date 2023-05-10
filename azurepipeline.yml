@@ -11,7 +11,7 @@ variables:
 steps:
 - script: |
     git config --global user.name "Harsha"
-    git config --global user.email "harsha13december@gmail.com"
+    git config --global user.email "harsha13dec@gmail.com"
     git checkout -b release-$(Build.BuildNumber)
     echo $(major).$(minor).$(patch) > VERSION
     git add VERSION
