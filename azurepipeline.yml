@@ -1,5 +1,6 @@
 trigger:
-- main
+  - main
+
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -9,12 +10,17 @@ variables:
   patch: $[counter(format('{0}.{1}', variables['major'], variables['minor']), 0)]
 
 steps:
-- script: |
-    git config --global user.name "Harsha"
-    git config --global user.email "harsha13december@gmail.com"
-    git checkout -b release-$(Build.BuildNumber)
-    echo $(major).$(minor).$(patch) > VERSION
-    git add VERSION
-    git commit -m "Bump version to $(major).$(minor).$(patch)"
-    git push origin release-$(Build.BuildNumber)
-  displayName: 'Create release branch and bump version'
+  - name: Configure Git credentials
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: |
+      git config --global user.email "harsha13december@gmail.com"
+      git config --global user.name "Harsha"
+
+  - script: |
+      git checkout -b release-$(Build.BuildNumber)
+      echo $(major).$(minor).$(patch) > VERSION
+      git add VERSION
+      git commit -m "Bump version to $(major).$(minor).$(patch)"
+      git push origin release-$(Build.BuildNumber)
+    displayName: 'Create release branch and bump version'
