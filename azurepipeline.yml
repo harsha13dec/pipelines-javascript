@@ -26,13 +26,7 @@ stages:
         npm run build --if-present
         npm run test --if-present
       displayName: 'npm install, build and test'
-    - script:  |
-         git checkout -b release-$(Build.BuildNumber)
-         echo $(major).$(minor).$(patch) > VERSION
-         git add VERSION
-         git commit -m "Bump version to $(major).$(minor).$(patch)"
-         git push origin release-$(Build.BuildNumber)
-      displayName: 'Create release branch and bump version'
+    
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
