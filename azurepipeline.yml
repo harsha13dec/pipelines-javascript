@@ -10,7 +10,7 @@ variables:
   patch: $[counter(format('{0}.{1}', variables['major'], variables['minor']), 0)]
 
 steps:
-  
+  - displayName: Configure Git credentials
     env: 
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     run: |
