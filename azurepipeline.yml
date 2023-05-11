@@ -1,20 +1,19 @@
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-  
-- script: |
-   - checkout: self
+  - checkout: self
     persistCredentials: true
-    git config --global user.email "harsha13december@gmail.com"
-    git config --global user.name "harsha"
-    npm version patch -m "Bumped version to %s [skip ci]"
-    git checkout -b release-1.0.0.0
-    git add package.json
-    git commit -m "Bump version number and create release branch" --author "harsha <harsha13december@gmail.com>"
-    git push --set-upstream origin release-1.0.0.0
-  displayName: 'Bump version and create release branch'
 
+  - script: |
+      git config --global user.email "harsha13december@gmail.com"
+      git config --global user.name "harsha"
+      npm version patch -m "Bumped version to %s [skip ci]"
+      git checkout -b release-1.0.0.0
+      git add package.json
+      git commit -m "Bump version number and create release branch" --author "harsha <harsha13december@gmail.com>"
+      git push --set-upstream origin release-1.0.0.0
+    displayName: 'Bump version and create release branch'
