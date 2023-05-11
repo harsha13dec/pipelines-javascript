@@ -15,4 +15,3 @@ steps:
     git push --set-upstream origin release-1.0.0.0
   displayName: 'Bump version and create release branch'
 
--
