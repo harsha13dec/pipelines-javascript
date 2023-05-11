@@ -15,6 +15,7 @@ steps:
       git checkout -b release-1.0.0.0
       git add package.json
       git commit -m "Bump version number and create release branch" --author "harsha <harsha13december@gmail.com>"
-      git pull origin release-1.0.0.0 --rebase
+      git fetch origin release-1.0.0.0
+      git merge origin/release-1.0.0.0
       git push --set-upstream origin release-1.0.0.0
     displayName: 'Bump version and create release branch'
