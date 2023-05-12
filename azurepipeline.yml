@@ -2,20 +2,21 @@ trigger:
   - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
+
+variables:
+  major: 1
+  minor: 0
+  patch: $[counter(format('{0}.{1}', variables['major'], variables['minor']), 0)]
 
 steps:
-  - checkout: self
-    persistCredentials: true
-
-  - script: |
-      git config --global user.email "harsha13december@gmail.com"
-      git config --global user.name "harsha"
-      npm version patch -m "Bumped version to %s [skip ci]"
-      git checkout -b release-1.0.0.0
-      git add package.json
-      git commit -m "Bump version number and create release branch" --author "harsha <harsha13december@gmail.com>"
-      git fetch origin release-1.0.0.0
-      git merge --allow-unrelated-histories origin/release-1.0.0.0
-      git push --set-upstream origin release-1.0.0.0
-    displayName: 'Bump version and create release branch'
+- checkout: self
+  persistCredentials: true
+- script: |
+    git config --global user.email "harsha13december@gmail.com"
+    git config --global user.name "Harsha"
+    git checkout -b release-$(Build.BuildNumber)
+    echo $(major).$(minor).$(patch) > VERSION
+    git add VERSION
+    git commit -m "Bump version to $(major).$(minor).$(patch)"
+    git push origin release-$(Build.BuildNumber)
