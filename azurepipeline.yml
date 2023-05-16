@@ -16,8 +16,9 @@ steps:
     git config --global user.email "harsha13december@gmail.com"
     git config --global user.name "Harsha"
     npm version patch -m "Bumped version to %s [skip ci]"
+    currentVersion=$(jq -r '.version' package.json)
     git checkout -b release-$(Build.BuildNumber)
-    echo $(major).$(minor).$(patch) > package.json
+    echo $currentVersion > package.json 
     git add package.json
-    git commit -m "Bump version to $(major).$(minor).$(patch)"
+    git commit -m "Bump version to $currentVersion"
     git push origin release-$(Build.BuildNumber)
